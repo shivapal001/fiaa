@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy 16th Birthday, Fiaa ❤️</title>
+
+    <!-- 1. Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fonts for Quest 1 (Puzzle) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- 3. Three.js (for 3D) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- 4. Lenis (for Smooth Scroll) -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+    <!-- 5. Link to your new CSS file -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- 
+      This inline script is for Tailwind CSS configuration. 
+      It adds your custom colors, fonts, and animations to Tailwind.
+      It's best to keep this here so the Tailwind CDN can use it.
+    -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              cursive: ["Pacifico", "cursive"],
+              poppins: ["Poppins", "sans-serif"], // Add poppins
+            },
+            colors: {
+              "brand-pink": {
+                light: "#fce7f3", // pink-100
+                DEFAULT: "#ec4899", // pink-500
+                dark: "#be185d", // pink-700
+              },
+              "brand-purple": {
+                light: "#f5f3ff", // violet-50
+                DEFAULT: "#8b5cf6", // violet-500
+                dark: "#6d28d9", // violet-700
+              },
+            },
+            animation: {
+              float: "float 6s ease-in-out infinite",
+              "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+              "fade-in": "fadeIn 1s ease-out",
+            },
+            keyframes: {
+              float: {
+                "0%, 100%": { transform: "translateY(-3%)" },
+                "50%": { transform: "translateY(3%)" },
+              },
+              fadeIn: {
+                "0%": { opacity: "0", transform: "translateY(10px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="antialiased">
+    <!-- --- QUEST 1: PUZZLE CARD --- -->
+    <div
+      id="quest-1-wrapper"
+      class="text-brand-pink-dark min-h-screen flex items-center justify-center p-4"
+      style="
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);
+      "
+    >
+      <div
+        class="w-full max-w-md mx-auto bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-8 text-center overflow-hidden relative"
+      >
+        <!-- Background decorative elements -->
+        <div
+          class="absolute -top-16 -left-16 w-48 h-48 bg-brand-pink-light/50 rounded-full animate-float opacity-50"
+        ></div>
+        <div
+          class="absolute -bottom-20 -right-10 w-56 h-56 bg-brand-purple-light/50 rounded-full animate-float [animation-delay:-3s] opacity-50"
+        ></div>
+
+        <!-- Puzzle Box -->
+        <div id="puzzle-box" class="relative z-10">
+          <!-- Header Title -->
+          <h1
+            class="font-cursive text-5xl md:text-6xl text-brand-pink-dark mb-4"
+          >
+            Happy Birthday, Fiaa!
+          </h1>
+          <p class="text-lg text-brand-pink-dark mb-6 font-cursive">
+            A little mystery just for you...
+          </p>
+
+          <!-- Clue Grid -->
+          <div class="grid grid-cols-3 gap-4 mb-6">
+            <!-- Clue 1: Gift -->
+            <div class="clue-item" data-clue="1">🎁</div>
+            <!-- Clue 2: Balloon -->
+            <div class="clue-item" data-clue="2">🎈</div>
+            <!-- Clue 3: Question -->
+            <div class="clue-item" data-clue="3">❓</div>
+            <!-- Clue 4: Lightbulb -->
+            <div class="clue-item" data-clue="4">💡</div>
+            <!-- Clue 5: Magnifier -->
+            <div class="clue-item" data-clue="5">🔍</div>
+            <!-- Clue 6: Cake -->
+            <div class="clue-item" data-clue="6">🎂</div>
+            <!-- Clue 7: Love letter -->
+            <div class="clue-item col-start-2" data-clue="7">💌</div>
+          </div>
+
+          <!-- Hint Text -->
+          <p class="text-lg text-brand-pink-dark font-semibold mb-4 font-display">
+            Hint: Look for the clues to find the 7-digit code!
+          </p>
+
+          <!-- Input Form -->
+          <form id="codeForm" class="flex flex-col gap-3">
+            <input
+              type="text"
+              id="codeInput"
+              placeholder="Enter the code"
+              class="w-full px-4 py-3 border-2 border-brand-pink-light rounded-xl text-center text-lg text-brand-pink-dark placeholder-brand-pink-dark/50 focus:outline-none focus:ring-2 focus:ring-brand-pink focus:border-transparent transition"
+              maxlength="7"
+              inputmode="numeric"
+              autocomplete="off"
+              autocapitalize="characters"
+            />
+            <button
+              type="submit"
+              class="w-full px-4 py-3 bg-brand-pink text-white font-bold rounded-xl text-lg hover:bg-brand-pink-dark shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
+            >
+              Submit
+            </button>
+          </form>
+
+          <!-- Message Area -->
+          <div id="messageArea" class="mt-4 text-lg font-semibold h-6"></div>
+        </div>
+
+        <!-- Quest Page 2 (Key) - This is no longer used, but kept for reference -->
+        <div
+          id="quest-page-2"
+          class="hidden relative z-10 p-6 flex-col items-center justify-center animate-fade-in"
+        >
+          <h2
+            class="font-cursive text-5xl md:text-6xl text-brand-pink-dark mb-4"
+          >
+            Quest 2
+          </h2>
+          <p class="text-2xl text-brand-pink-dark mb-6">
+            You've unlocked the next challenge!
+          </p>
+          <div class="text-8xl mb-6 animate-pulse-slow">🗝️</div>
+          <p class="text-lg text-brand-pink-dark mb-2">
+            What adventure awaits...?
+          </p>
+        </div>
+      </div>
+
+      <!-- Clue Modal -->
+      <div
+        id="clueModal"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none z-50"
+      >
+        <div
+          id="modalContent"
+          class="bg-white rounded-2xl shadow-2xl p-6 md:p-8 max-w-sm w-full text-center relative transition-transform duration-300 transform scale-95"
+        >
+          <button
+            id="closeModal"
+            class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+          <h3 class="text-2xl font-bold text-brand-purple-dark mb-4">Clue</h3>
+          <p id="clueText" class="text-xl text-gray-700"></p>
+        </div>
+      </div>
+
+      <!-- New Congrats Modal -->
+      <div
+        id="congratsModal"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none z-50"
+      >
+        <div
+          id="congratsModalContent"
+          class="bg-white rounded-2xl shadow-2xl p-6 md:p-8 max-w-sm w-full text-center relative transition-transform duration-300 transform scale-95"
+        >
+          <div class="text-8xl mb-6 animate-pulse-slow">💖</div>
+          <h3 class="text-2xl font-bold text-brand-purple-dark mb-4">
+            That's Smart of you, my Princess ❤️
+          </h3>
+          <button
+            id="continueButton"
+            class="w-full mt-6 px-4 py-3 bg-brand-pink text-white font-bold rounded-xl text-lg hover:bg-brand-pink-dark shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- End #quest-1-wrapper -->
+
+    <!-- --- QUEST 3: SCROLLING WEBSITE (Hidden by default) --- -->
+    <div id="quest-3-wrapper" class="hidden">
+      <!-- Canvas element for the Three.js 3D model -->
+      <canvas id="bg-3d"></canvas>
+
+      <!-- 
+          This is the main content wrapper. 
+          All page content goes inside here to scroll over the 3D background.
+        -->
+      <div class="content-wrapper">
+        <!-- Header/Navbar -->
+        <header class="glass-nav fixed top-0 left-0 w-full z-50">
+          <nav
+            class="container mx-auto max-w-6xl px-6 py-4 flex justify-between items-center"
+          >
+            <a
+              href="#home"
+              class="text-2xl font-bold text-pink-600 font-display shrink-0"
+            >
+              Fiaa 😉
+            </a>
+            <div
+              id="desktop-menu"
+              class="hidden items-center lg:flex flex-row gap-4"
+            >
+              <a
+                href="#home"
+                class="text-gray-700 hover:text-gray-900 transition-colors font-display"
+                >Home</a
+              >
+              <a
+                href="#story"
+                class="text-gray-700 hover:text-gray-900 transition-colors font-display"
+                >My Letter</a
+              >
+              <a
+                href="#gallery"
+                class="text-gray-700 hover:text-gray-900 transition-colors font-display"
+                >Memories</a
+              >
+              <a
+                href="#wishes"
+                class="text-gray-700 hover:text-gray-900 transition-colors font-display"
+                >Surprise</a
+              >
+            </div>
+            <div
+              id="mobile-menu"
+              class="glass-nav lg:hidden w-full flex-col gap-4 items-start mt-16 pb-4 px-6 flex lg:flex-row absolute top-0 left-0 max-h-auto transition-all duration-1000 ease-in-out"
+            >
+              <a
+                href="#home"
+                class="text-gray-700 hover:text-gray-900 transition-colors font-display"
+                >Home</a
+              >
+              <a
+                href="#story"
+                class="text-gray-700 hover:text-gray-900 transition-colors font-display"
+                >My Letter</a
+              >
+              <a
+                href="#gallery"
+                class="text-gray-700 hover:text-gray-900 transition-colors font-display"
+                >Memories</a
+              >
+              <a
+                href="#wishes"
+                class="text-gray-700 hover:text-gray-900 transition-colors font-display"
+                >Surprise</a
+              >
+            </div>
+            <a
+              href="#wishes"
+              class="shrink-0 hidden lg:flex bg-pink-500 hover:bg-pink-600 text-white px-5 py-2 rounded-lg transition-colors font-display"
+            >
+              One Last Thing
+            </a>
+            <!-- Mobile menu button (simple) -->
+            <button id="mobile-menu-button" class="lg:hidden text-gray-900">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
+          </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section
+          id="home"
+          class="h-screen min-h-[700px] flex items-center justify-center text-center relative px-6"
+        >
+          <div id="hero-text" class="relative z-10">
+            <h1
+              class="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black mb-4 font-display"
+            >
+              <span class="text-gradient">HAPPY</span>
+            </h1>
+            <h2
+              class="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black mb-8 text-gray-900 font-display"
+            >
+              BIRTHDAY!
+            </h2>
+            <p class="text-xl md:text-2xl text-gray-700 max-w-2xl mx-auto">
+              <strong>Fiaa</strong>, my Princess is finally 16 ✨
+            </p>
+          </div>
+        </section>
+
+        <section id="story" class="py-24 md:py-32 bg-white relative"><div class="container mx-auto max-w-6xl px-6"><h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-10 text-center reveal-on-scroll font-display">Happy 16th Birthday, <span class="text-gradient">My Princess ❤️</span></h2><div class="max-w-3xl mx-auto text-lg text-gray-700 space-y-6"><p class="reveal-on-scroll text-pink-600 font-semibold">Happiest Birthday meri Princess ❤️</p><p class="reveal-on-scroll ">Aaj ka din mere liye sirf tumhara birthday nahi hai, balki woh din hai jis din meri life mein ek aisi beautiful soul aayi jise main genuinely bahut special maanta hoon.</p><p class="reveal-on-scroll ">Meri Princess, I honestly don't know ki main words mein exactly kaise explain karun ki tum mere liye kitni important ho, but bas itna samajh lena ki tumhari ek chhoti si smile bhi mera mood change kar sakti hai.</p><p class="reveal-on-scroll ">Tumse baat karna, tumhari silly baatein sunna, tumhari care feel karna aur tumhare saath woh little moments share karna mere liye genuinely precious hai.</p><p class="reveal-on-scroll ">Kabhi main stupid behave karun, kabhi meri baaton ka koi sense na ho ya kabhi main apni feelings properly express na kar paun, phir bhi I hope tum hamesha samjho ki mere dil mein tumhare liye bahut genuine care hai.</p><p class="reveal-on-scroll ">Main dil se wish karta hoon ki tumhari life mein hamesha happiness rahe, tumhare saare dreams complete ho, tumhe kabhi kisi cheez ki wajah se apni smile na khona pade aur tum hamesha isi tarah cute, crazy aur beautiful soul bani raho.</p><p class="reveal-on-scroll ">Tum deserve karti ho ki tumhe special feel karaya jaaye, sirf birthday par nahi balki har single day.</p><p class="reveal-on-scroll ">Thank you meri Princess, meri life ka ek beautiful part banne ke liye, mujhe apna time dene ke liye aur mere saath itne saare little moments create karne ke liye.</p><p class="reveal-on-scroll ">Aaj tumhara day hai, so no overthinking, no sadness. Bas smile karna hai, khush rehna hai aur apna birthday enjoy karna hai.</p><p class="reveal-on-scroll text-pink-600 font-semibold">Once again, Happiest Birthday meri Princess ❤️</p><p class="reveal-on-scroll ">May this new year of your life bring you endless happiness, beautiful memories and everything your heart wishes for.</p><p class="reveal-on-scroll ">And always remember, no matter how much time passes, you will always be someone very special to me.</p></div></div></section><section id="poem" class="py-24 md:py-32 bg-rose-50 relative"><div class="container mx-auto max-w-6xl px-6"><div class="poem-bg max-w-3xl mx-auto rounded-2xl shadow-2xl p-8 md:p-14 text-center text-white"><p class="reveal-on-scroll font-cursive text-2xl md:text-4xl leading-loose" style="transition-delay:0ms">Mat pucho mujhse ki kaisi lagti ho</p><p class="reveal-on-scroll font-cursive text-2xl md:text-4xl leading-loose" style="transition-delay:250ms">Chaand bhi sharma jaye aisi lagti ho</p><p class="reveal-on-scroll font-cursive text-2xl md:text-4xl leading-loose" style="transition-delay:500ms">Kabhi dekhna khud ko aaine mein</p><p class="reveal-on-scroll font-cursive text-2xl md:text-4xl leading-loose" style="transition-delay:750ms">Tum achhi ya khoobsoorat nahi</p><p class="reveal-on-scroll font-cursive text-2xl md:text-4xl leading-loose" style="transition-delay:1000ms">Tum sirf meri lagti ho ❤️</p></div></div></section><section id="gallery" class="py-24 md:py-32 bg-white relative"><div class="container mx-auto max-w-6xl px-6"><h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-10 text-center reveal-on-scroll font-display">A Look Back: <span class="text-gradient">Our Memories</span></h2><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"><div class="photo-card bg-white rounded-xl overflow-hidden shadow-2xl reveal-on-scroll"><img src="images/fiaa-01.jpg" alt="Fiaa memory 1" loading="lazy" class="gal-img w-full h-96 object-cover object-top cursor-zoom-in" onerror="this.closest('.photo-card').remove()"><div class="p-6"><h3 class="text-xl font-bold text-pink-600">Meri Princess ✨</h3></div></div><div class="photo-card bg-white rounded-xl overflow-hidden shadow-2xl reveal-on-scroll"><img src="images/fiaa-02.jpg" alt="Fiaa memory 2" loading="lazy" class="gal-img w-full h-96 object-cover object-top cursor-zoom-in" onerror="this.closest('.photo-card').remove()"><div class="p-6"><h3 class="text-xl font-bold text-pink-600">Cute, crazy aur beautiful 😍</h3></div></div><div class="photo-card bg-white rounded-xl overflow-hidden shadow-2xl reveal-on-scroll"><img src="images/fiaa-03.jpg" alt="Fiaa memory 3" loading="lazy" class="gal-img w-full h-96 object-cover object-top cursor-zoom-in" onerror="this.closest('.photo-card').remove()"><div class="p-6"><h3 class="text-xl font-bold text-pink-600">Ye smile mera mood change kar deti hai</h3></div></div><div class="photo-card bg-white rounded-xl overflow-hidden shadow-2xl reveal-on-scroll"><img src="images/fiaa-04.jpg" alt="Fiaa memory 4" loading="lazy" class="gal-img w-full h-96 object-cover object-top cursor-zoom-in" onerror="this.closest('.photo-card').remove()"><div class="p-6"><h3 class="text-xl font-bold text-pink-600">Little moments, big feelings 💗</h3></div></div><div class="photo-card bg-white rounded-xl overflow-hidden shadow-2xl reveal-on-scroll"><img src="images/fiaa-05.jpg" alt="Fiaa memory 5" loading="lazy" class="gal-img w-full h-96 object-cover object-top cursor-zoom-in" onerror="this.closest('.photo-card').remove()"><div class="p-6"><h3 class="text-xl font-bold text-pink-600">Meri favourite 💖</h3></div></div><div class="photo-card bg-white rounded-xl overflow-hidden shadow-2xl reveal-on-scroll"><img src="images/fiaa-06.jpg" alt="Fiaa memory 6" loading="lazy" class="gal-img w-full h-96 object-cover object-top cursor-zoom-in" onerror="this.closest('.photo-card').remove()"><div class="p-6"><h3 class="text-xl font-bold text-pink-600">Bas tum aur ye smile</h3></div></div><div class="photo-card bg-white rounded-xl overflow-hidden shadow-2xl reveal-on-scroll"><img src="images/fiaa-07.jpg" alt="Fiaa memory 7" loading="lazy" class="gal-img w-full h-96 object-cover object-top cursor-zoom-in" onerror="this.closest('.photo-card').remove()"><div class="p-6"><h3 class="text-xl font-bold text-pink-600">Always someone special</h3></div></div></div></div></section><section id="videos" class="py-24 md:py-32 bg-rose-50 relative"><div class="container mx-auto max-w-6xl px-6"><h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-10 text-center reveal-on-scroll font-display">Moments <span class="text-gradient">in Motion</span></h2><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"><div class="photo-card bg-white rounded-xl overflow-hidden shadow-2xl reveal-on-scroll"><video src="videos/memory-video-01.mp4#t=0.5" class="w-full h-96 object-cover bg-black" controls playsinline preload="metadata" onerror="this.closest('.photo-card').remove()"></video><div class="p-6"><h3 class="text-xl font-bold text-pink-600">Just Being Goofy 😜</h3></div></div><div class="photo-card bg-white rounded-xl overflow-hidden shadow-2xl reveal-on-scroll"><video src="videos/memory-video-02.mp4#t=0.5" class="w-full h-96 object-cover bg-black" controls playsinline preload="metadata" onerror="this.closest('.photo-card').remove()"></video><div class="p-6"><h3 class="text-xl font-bold text-pink-600">Yeh wali toh meri favourite hai</h3></div></div><div class="photo-card bg-white rounded-xl overflow-hidden shadow-2xl reveal-on-scroll"><video src="videos/memory-video-03.mp4#t=0.5" class="w-full h-96 object-cover bg-black" controls playsinline preload="metadata" onerror="this.closest('.photo-card').remove()"></video><div class="p-6"><h3 class="text-xl font-bold text-pink-600">Chhoti si smile, bada sa asar</h3></div></div></div></div></section><section id="since" class="py-24 md:py-32 bg-white relative"><div class="container mx-auto max-w-6xl px-6"><h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-10 text-center reveal-on-scroll font-display">Since You Came <span class="text-gradient">Into My Life</span></h2><div class="max-w-3xl mx-auto text-lg text-gray-700 space-y-6 text-center"><p class="reveal-on-scroll ">Thank you so much baby for coming into my life.</p><p class="reveal-on-scroll ">Ever since you came into my life, my world has become a little more beautiful.</p><p class="reveal-on-scroll ">I never had this much trust in love before, but after you came into my life, my heart finally started believing in it.</p><p class="reveal-on-scroll ">I never thought someone could become so special to me that you would be a part of every happiness of mine and every prayer I make.</p><p class="reveal-on-scroll ">You are the reason behind my smile, the reason behind my peace, and the most beautiful part of my life.</p><p class="reveal-on-scroll ">You are so special to me that maybe I can never express it completely in words.</p><p class="reveal-on-scroll ">Just understand one thing:</p><p class="reveal-on-scroll text-pink-600 font-semibold">I love you soooo much.</p><p class="reveal-on-scroll ">Always stay by my side, because without you, my world feels a little incomplete.</p><p class="reveal-on-scroll text-pink-600 font-semibold">I love youuuuu sooooo muchhh, my love, my baby ❤️</p></div></div></section><section id="song" class="py-24 md:py-32 bg-rose-50 relative"><div class="container mx-auto max-w-3xl px-6 text-center"><h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-center reveal-on-scroll font-display">Our <span class="text-gradient">Song 🎶</span></h2><p class="text-lg text-gray-700 mb-8 reveal-on-scroll">Achchi Lagti (Slowed + Reverb)</p><div class="bg-white rounded-xl shadow-2xl p-6 md:p-10 reveal-on-scroll"><button id="song-btn" type="button" class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-2 rounded-lg transition-colors font-display mb-6">Play / Pause ♪</button>
+<!-- LYRICS: apne lyrics neeche wale box ke andar paste karo. Har line ke baad ek nayi <p> ya <br> laga sakte ho. -->
+<div id="lyrics" class="max-h-72 overflow-y-auto text-left text-gray-700 leading-loose whitespace-pre-line px-2" tabindex="0" aria-label="Song lyrics"><p class="text-pink-600 text-center">Yahan song ke lyrics aayenge 🎶</p></div></div></div></section>
+
+        <section id="wishes" class="py-24 md:py-32 bg-white relative"><div class="container mx-auto max-w-3xl px-6 text-center"><h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 reveal-on-scroll font-display">Happy 16th Birthday, <span class="text-gradient">Fiaa ❤️</span></h2><p class="text-lg text-gray-700 mb-10 reveal-on-scroll">Here's to you, your smile, your dreams, and all the beautiful memories waiting for you.</p><button id="last-btn" class="bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-lg transition-colors font-display">One Last Thing 💌</button><div id="last-msg" class="hidden mt-10 p-8 bg-white rounded-lg shadow-inner border border-rose-200 text-xl text-pink-600 font-semibold">You're not just a part of my memories.<br>You're one of the most beautiful chapters of my life. ❤️</div></div></section>
+
+        <!-- Footer -->
+        <footer class="py-12 bg-rose-100">
+          <div
+            class="container mx-auto max-w-6xl px-6 text-center text-gray-600"
+          >
+            <p>Made with ❤️ just for you</p>
+          </div>
+        </footer>
+      </div>
+      <!-- End .content-wrapper -->
+    </div>
+    <!-- End #quest-3-wrapper -->
+
+    <!-- Link to your new JavaScript file -->
+    <button id="music-btn" aria-label="Play music" aria-pressed="false" class="fixed bottom-4 right-4 z-[60] w-12 h-12 rounded-full bg-pink-500 text-white text-xl shadow-lg">♪</button>
+    <audio id="bgm" src="music/birthday.mp3" loop preload="auto"></audio>
+    <div id="lightbox" class="hidden fixed inset-0 z-[70] bg-black/90 items-center justify-center" role="dialog" aria-modal="true"><button id="lb-close" aria-label="Close" class="absolute top-4 right-4 text-white text-3xl">✕</button><button id="lb-prev" aria-label="Previous" class="absolute left-3 text-white text-5xl">‹</button><img id="lb-img" alt="" class="max-w-[92vw] max-h-[88vh] rounded-lg transition-opacity duration-300"><button id="lb-next" aria-label="Next" class="absolute right-3 text-white text-5xl">›</button></div>
+    <script src="script.js"></script>
+  </body>
+</html>
